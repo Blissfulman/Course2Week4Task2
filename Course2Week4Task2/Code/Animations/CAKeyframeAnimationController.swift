@@ -15,9 +15,24 @@ class CAKeyframeAnimationController: UIViewController {
     @IBOutlet weak var startSinAnimationButton: UIButton!
     
     @IBAction func shakeAnimationTapHandler(sender: UIButton) {
+        // Анимация тряски
+        let shakeAnimation = CAKeyframeAnimation(keyPath: "position.x")
+        shakeAnimation.values = [0, 10, -10, 10, -5, 5, -5, 0]
+        shakeAnimation.keyTimes = [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.8, 1]
+        shakeAnimation.duration = 0.4
+        shakeAnimation.isAdditive = true
+        passcodeTextField.layer.add(shakeAnimation, forKey: "shake")
     }
 
     @IBAction func sinAnimationTapHandler(sender: UIButton) {
+        // Анимация движения с вращением по синусоиде
+        let moveBySinAnimation = CAKeyframeAnimation(keyPath: #keyPath(CALayer.position))
+        moveBySinAnimation.duration = 6
+        moveBySinAnimation.path = sinPath()
+        moveBySinAnimation.rotationMode = .rotateAuto
+        moveBySinAnimation.calculationMode = .paced
+        moveBySinAnimation.repeatCount = .infinity
+        orangeView.layer.add(moveBySinAnimation, forKey: "move")
     }
 
     // MARK: - Life cycle
