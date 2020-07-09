@@ -84,42 +84,35 @@ class CABasicAnimationController: UIViewController {
     @objc
     private func tapGreenView(recognizer: UITapGestureRecognizer) {
         // Анимация цвета
-        let firstColor = greenView.backgroundColor!
-        let secondColor = UIColor.magenta
-        let colorAnimation = CAKeyframeAnimation(keyPath: #keyPath(CALayer.backgroundColor))
-        colorAnimation.values = [firstColor.cgColor, secondColor.cgColor, firstColor.cgColor, secondColor.cgColor, firstColor.cgColor]
-        colorAnimation.keyTimes = [0, 0.25, 0.5, 0.75, 1]
-        colorAnimation.timingFunctions = [CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut),
-                                          CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut),
-                                          CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut),
-                                          CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)]
+        let firstColor = UIColor.green.cgColor
+        let secondColor = UIColor.magenta.cgColor
+        let colorAnimation = CABasicAnimation(keyPath: #keyPath(CALayer.backgroundColor))
+        colorAnimation.fromValue = firstColor
+        colorAnimation.toValue = secondColor
+        colorAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
 
         // Анимация движения
         let firstPosition = greenView.center
         let secondPosition = view.center
-        let moveAnimation = CAKeyframeAnimation(keyPath: #keyPath(CALayer.position))
-        moveAnimation.values = [firstPosition, secondPosition, firstPosition, secondPosition, firstPosition]
-        moveAnimation.keyTimes = [0, 0.25, 0.5, 0.75, 1]
-        moveAnimation.timingFunctions = [CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut),
-                                         CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut),
-                                         CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut),
-                                         CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)]
+        let moveAnimation = CABasicAnimation(keyPath: #keyPath(CALayer.position))
+        moveAnimation.fromValue = firstPosition
+        moveAnimation.toValue = secondPosition
+        moveAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         
         // Анимация размера
         let firstScale: CGFloat = 1
         let secondScale: CGFloat = 1.5
-        let scaleAnimation = CAKeyframeAnimation(keyPath: "transform.scale")
-        scaleAnimation.values = [firstScale, secondScale, firstScale, secondScale, firstScale]
-        scaleAnimation.keyTimes = [0, 0.25, 0.5, 0.75, 1]
-        scaleAnimation.timingFunctions = [CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut),
-                                          CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut),
-                                          CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut),
-                                          CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)]
+        let scaleAnimation = CABasicAnimation(keyPath: "transform.scale")
+        scaleAnimation.fromValue = firstScale
+        scaleAnimation.toValue = secondScale
+        scaleAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         
         // Группировка анимаций
         let groupAnimation = CAAnimationGroup()
         groupAnimation.animations = [colorAnimation, moveAnimation, scaleAnimation]
-        groupAnimation.duration = 4.0
+        groupAnimation.duration = 1.0
+        groupAnimation.autoreverses = true
+        groupAnimation.repeatCount = 2
         greenView.layer.add(groupAnimation, forKey: "groupAnimation")
     }
 }
