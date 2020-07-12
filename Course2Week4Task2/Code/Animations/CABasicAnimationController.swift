@@ -56,22 +56,22 @@ class CABasicAnimationController: UIViewController {
     
     @objc
     private func tapBlueView(recognizer: UITapGestureRecognizer) {
-        // Вычисление координаты x на основе половины диагонали фигуры
+        // MARK: - Вычисление координаты x на основе половины диагонали фигуры
         let xCenter = view.frame.width - sqrt(pow(blueView.frame.width, 2) + pow(blueView.frame.height, 2)) / 2
         
-        // Анимация движения
+        // MARK: - Анимация движения
         let endPosition = CGPoint(x: xCenter, y: blueView.center.y)
         let moveAnimation = CABasicAnimation(keyPath: #keyPath(CALayer.position))
         moveAnimation.fromValue = blueView.center
         moveAnimation.toValue = endPosition
         
-        // Анимация вращения
+        // MARK: - Анимация вращения
         let endAngle: CGFloat = 7 * .pi / 4
         let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
         rotationAnimation.fromValue = 0
         rotationAnimation.toValue = endAngle
 
-        // Группировка анимаций
+        // MARK: - Группировка анимаций
         let groupAnimation = CAAnimationGroup()
         groupAnimation.animations = [moveAnimation, rotationAnimation]
         groupAnimation.duration = 2.0
@@ -83,7 +83,7 @@ class CABasicAnimationController: UIViewController {
     
     @objc
     private func tapGreenView(recognizer: UITapGestureRecognizer) {
-        // Анимация цвета
+        // MARK: - Анимация цвета
         let firstColor = UIColor.green.cgColor
         let secondColor = UIColor.magenta.cgColor
         let colorAnimation = CABasicAnimation(keyPath: #keyPath(CALayer.backgroundColor))
@@ -91,7 +91,7 @@ class CABasicAnimationController: UIViewController {
         colorAnimation.toValue = secondColor
         colorAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
 
-        // Анимация движения
+        // MARK: - Анимация движения
         let firstPosition = greenView.center
         let secondPosition = view.center
         let moveAnimation = CABasicAnimation(keyPath: #keyPath(CALayer.position))
@@ -99,7 +99,7 @@ class CABasicAnimationController: UIViewController {
         moveAnimation.toValue = secondPosition
         moveAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         
-        // Анимация размера
+        // MARK: - Анимация размера
         let firstScale: CGFloat = 1
         let secondScale: CGFloat = 1.5
         let scaleAnimation = CABasicAnimation(keyPath: "transform.scale")
@@ -107,7 +107,7 @@ class CABasicAnimationController: UIViewController {
         scaleAnimation.toValue = secondScale
         scaleAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         
-        // Группировка анимаций
+        // MARK: - Группировка анимаций
         let groupAnimation = CAAnimationGroup()
         groupAnimation.animations = [colorAnimation, moveAnimation, scaleAnimation]
         groupAnimation.duration = 1.0
