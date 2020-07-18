@@ -46,9 +46,16 @@ class UIKitDynamicController: UIViewController {
         let attachment = UIAttachmentBehavior(item: animationView, attachedToAnchor: anchorView.center)
         attachment.length = length
         let gravity = UIGravityBehavior(items: [animationView])
+        /// **КОММЕНТАРИЙ**
+        /// можно поиграть с значениями угла и магнитуды колебаний
+        gravity.setAngle(1.2, magnitude: 0.5)
         let itemBehaviour = UIDynamicItemBehavior(items: [animationView])
         itemBehaviour.elasticity = 0.8
+        /// добавил ограничение колебаний, чтобы большой квадрат за bounds не улетал 
+        let collision = UICollisionBehavior(items: [animationView])
+        collision.translatesReferenceBoundsIntoBoundary = true
         dynamicAnimator.addBehavior(attachment)
         dynamicAnimator.addBehavior(gravity)
+        dynamicAnimator.addBehavior(collision)
     }
 }
